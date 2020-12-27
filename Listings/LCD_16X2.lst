@@ -1,0 +1,92 @@
+C51 COMPILER V9.60.0.0   LCD_16X2                                                          12/25/2020 20:20:45 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LCD_16X2
+OBJECT MODULE PLACED IN .\Objects\LCD_16X2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE LCD_16X2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -LCD_16X2.lst) TABS(2) OBJECT(.\Objects\LCD_16X2.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          sbit rs=P1^0;
+   3          sbit rw=P1^1;
+   4          sbit en=P1^2;
+   5          
+   6          void lcdcmd(unsigned char);
+   7          void lcddat(unsigned char);
+   8          void delay();
+   9          void main()
+  10          {
+  11   1        P2=0x00;  //output decleration of d0-d7
+  12   1        while(1)
+  13   1        {
+  14   2          lcdcmd(0x38); // 5x7 dotmatrix decleration or initalization
+  15   2          delay();
+  16   2          lcdcmd(0x01); //clear screen
+  17   2          delay();
+  18   2          lcdcmd(0x10);  //cursor blinking
+  19   2          delay();
+  20   2          lcdcmd(0x0c);  // display on
+  21   2          delay();
+  22   2          lcdcmd(0x81);  //force cursor to first line first position
+  23   2          delay();
+  24   2          lcddat('H');
+  25   2          delay();
+  26   2          lcddat('E');
+  27   2          delay();
+  28   2          lcddat('L');
+  29   2          delay();
+  30   2          lcddat('L');
+  31   2          delay();
+  32   2          lcddat('O');
+  33   2          delay();
+  34   2        }
+  35   1      }
+  36            
+  37          void lcdcmd(unsigned char val)
+  38          {
+  39   1        P2=val;
+  40   1        rs=0;
+  41   1        rw=0;
+  42   1        en=1;
+  43   1        delay();
+  44   1        en=0;
+  45   1      }
+  46          
+  47          void lcddat(unsigned char val)
+  48          {
+  49   1        P2=val;
+  50   1        rs=1;
+  51   1        rw=0;
+  52   1        en=1;
+  53   1        delay();
+  54   1        en=0;
+C51 COMPILER V9.60.0.0   LCD_16X2                                                          12/25/2020 20:20:45 PAGE 2   
+
+  55   1      }
+  56          
+  57          
+  58          void delay()
+  59          {
+  60   1        unsigned int i;
+  61   1        for (i=0; i<=12000; i++);
+  62   1      }
+  63          
+  64              
+  65              
+  66              
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    128    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
